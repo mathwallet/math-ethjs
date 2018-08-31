@@ -1,0 +1,17 @@
+<html>
+  <body>
+    <h2>Web3 API version</h2>
+    <p id="p1"></p>
+    <h2>My Account</h2>
+    <p id="account"></p>
+    <script src="web3.min.js"></script>
+    <script>
+      // Get API version
+      var p1 = document.getElementById("p1");
+      p1.innerHTML = web3.version.api;
+      // Get my MetaMask account
+      var account = document.getElementById("account");
+      account.innerHTML = web3.eth.accounts;
+    </script>
+  </body>
+</html>

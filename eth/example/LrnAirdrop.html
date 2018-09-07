@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>领取 LRN 空投</title>
+    <meta id="i18n_pagename" content="message">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://static.medishares.net/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://static.medishares.net/css/common.css?v=2018090501">
+    <script src="https://static.medishares.net/js/jquery-3.2.1.min.js"></script>
+    <script src="https://static.medishares.net/js/vue.min.js"></script>
+    <script src="https://static.medishares.net/js/common.js?v=2018090501"></script>
+</head>
+<div class="mds-group">
+<link rel="stylesheet" type="text/css" href="https://static.medishares.net/css/neo/lrn.css">
+<div class="lrn">
+  <div class="lrn-top center-align">
+    <img src="https://static.medishares.net/img/neo/Loopring_logo.png" width="100">
+    <div class="lrn-title"><span class="i18n" data-properties="lrn_title" data-ptype="text"></span></div>
+    <div class="lrn-subtitle i18n" data-properties="lrn_subtitle" data-ptype="text"></div>
+  </div>
+  <div class="card bind">
+    <ul class="amount">
+      <li>
+        <div class="amount-title i18n" data-properties="lrc_number" data-ptype="text"></div>
+        <!-- 持有 LRC 数量 -->
+        <p><span class="neoBalance"></span> LRC</p>
+      </li>
+      <li>
+        <div class="amount-title i18n" data-properties="lrn_neo_address" data-ptype="text"></div>
+        <p class="neo-address">
+          <!-- 绑定的 NEO 钱包地址 -->
+          <textarea id="neoAddress"  class="i18n" data-properties="lrn_neo_address_placeholder" data-ptype="placeholder"></textarea>
+        </p>
+      </li>
+    </ul>
+    <button id="bind" class="i18n" data-properties="lrn_confirm" data-ptype="text"></button>
+  </div>
+  <!-- 绑定成功 -->
+  <div class="card success">
+    <h3 class="i18n" data-properties="lrn_success" data-ptype="text"></h3>
+    <ul class="amount">
+      <li>
+        <div class="amount-title i18n" data-properties="lrc_number" data-ptype="text"></div>
+        <!-- 持有 LRC 数量 -->
+        <p><span class="neoBalance"></span> LRC</p>
+      </li>
+      <li>
+        <!-- 修改 -->
+        <a href="javascript:;" class="modify i18n" data-properties="lrn_modify" data-ptype="text"></a>
+        <div class="amount-title i18n" data-properties="lrn_neo_address" data-ptype="text"></div>
+        <!-- 绑定的 NEO 钱包地址 -->
+        <p class="success-address boundAddress"></p>
+      </li>
+    </ul>
+  </div>
+  <!-- 空投进行中 -->
+  <div class="card drop">
+    <h3 class="i18n" data-properties="lrn_drop" data-ptype="text"></h3>
+    <ul class="amount">
+      <li>
+        <div class="amount-title i18n" data-properties="lrn_neo_address" data-ptype="text"></div>
+        <!-- 绑定的 NEO 钱包地址 -->
+        <p class="boundAddress"></p>
+      </li>
+      <li>
+        <div class="amount-title i18n" data-properties="lrn_total_amount" data-ptype="text"></div>
+        <!-- LRN 空投总量 -->
+        <p><span class=""></span> LRN</p>
+      </li>
+      <li>
+        <div class="amount-title i18n" data-properties="lrn_amount" data-ptype="text"></div>
+        <!-- 已领 LRN 数量 -->
+        <p><span class=""></span> LRN</p>
+      </li>
+    </ul>
+  </div>
+  <!-- 不可绑定 -->
+  <div class="card fail center-align">
+    <h3 class="i18n" data-properties="lrn_fail" data-ptype="text"></h3>
+    <div class="fail-tip i18n" data-properties="lrn_fail_tip" data-ptype="text"></div>
+  </div>
+  <!-- 本期空投已结束 -->
+  <div class="card ended center-align">
+    <h3 class="i18n" data-properties="lrn_ended" data-ptype="text"></h3>
+  </div>
+  <!-- 打包中 -->
+  <div class="card package center-align">
+    <h3 class="i18n" data-properties="lrn_package" data-ptype="text"></h3>
+  </div>
+  <!-- 空投规则 -->
+  <div class="rule-list card">
+    <div class="title"><span class="i18n" data-properties="lrn_rule" data-ptype="text"></span></div>
+    <ul>
+      <li class="i18n" data-properties="lrn_rule_list1" data-ptype="text"></li>
+      <li class="i18n" data-properties="lrn_rule_list2" data-ptype="text"></li>
+      <li class="i18n" data-properties="lrn_rule_list3" data-ptype="text"></li>
+    </ul>
+    <div class="rule-tip">
+      <h4>Tips:</h4>
+      <p class="i18n" data-properties="lrn_rule_tip" data-ptype="text"></p>
+    </div>
+  </div>
+</div>
+<!-- loading -->
+<script src='https://static.medishares.net/js/plugins/lottie_light.min.js'></script>
+<script type="text/javascript">
+  $(function(){
+    lottie.loadAnimation({
+      container: $('#app_loading')[0], // the dom element that will contain the animation
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://static.medishares.net/js/plugins/loading.json' // the path to the animation json
+    });
+  })
+</script>
+<script src="https://static.medishares.net/js/web3.min.js"></script>
+<script src="https://static.medishares.net/js/web3/lrn.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+
+  if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+  } else {
+    $('#app_loading').hide();
+    alert(jQuery.i18n.prop('lrn_error_alert'));
+    mathWallet.closePage();
+  }
+
+  // creation of contract object
+  var LRNAirdropContract = web3.eth.contract(window.lrn_abi);
+  var LRCContract = web3.eth.contract(window.lrc_abi);
+  // initiate contract for an address
+  var myContractInstance = LRNAirdropContract.at('0xbf78B6E180ba2d1404c92Fc546cbc9233f616C42');
+  var lrcContractInstance = LRCContract.at('0xEF68e7C694F40c8202821eDF525dE3782458639f');
+
+  web3.eth.getAccounts(function(error, accounts){
+    if(!error){
+      // query Binding addresss  (Current ETH Address、ProjectID = 1)
+      var isBinding=function(){
+        myContractInstance.getBindingAddress(accounts[0],1,function(error, neoAddress){
+
+          if(!error){
+            // 如果有绑定地址
+            if(neoAddress){
+              $('.boundAddress').html(neoAddress);
+
+              // 2018/9/1之前
+              if(Date.now() < dateToUtcFunc(2018,8,1)){
+                $('.success').show();
+              }
+              // 2018/9/1-2018/9/5 无法修改绑定地址
+              else if(Date.now() < dateToUtcFunc(2018,8,5)){
+                $('.success').show();
+                $(".modify").hide();
+              }
+              // 2018/9/5之后
+              else {
+                $('.drop').show();
+              }
+
+            }
+            // 如果没有绑定地址，2018/9/1之后直接显示本期空投结束
+            else {
+              if(Date.now() < dateToUtcFunc(2018,8,1)){
+                $('.bind').show();
+              }else{
+                $(".ended").show();
+              }
+            }
+          }else{
+            alert(error);
+            window.location.reload();
+          }
+
+        });
+      }
+
+      // query lrn balance
+      lrcContractInstance.balanceOf(accounts[0],function(error, balance){
+        if(!error){
+          $('.card').hide();
+          $('#app_loading').hide();
+          var value = web3.fromWei(balance.toString(), 'ether');
+          value=Number(value).toFixed(4);
+          // 如果持有的LRC数量少于50枚
+          if(value<50){
+
+            // 2018/9/1之后直接显示本期空投结束
+            if(Date.now() < dateToUtcFunc(2018,8,1)){
+              $('.fail').show();
+            }else{
+              $(".ended").show();
+            }
+
+          }else{
+            $('.neoBalance').html(value);
+            // 判断是否绑定NEO地址
+            isBinding();
+          }
+
+        }
+      });
+    }else{
+      $('#app_loading').hide();
+      alert(jQuery.i18n.prop('lrn_error_alert'));
+      mathWallet.closePage();
+    }
+  })
+
+  //bind neo address
+  $('#bind').on('click',function(){
+    var neoAddress = $('#neoAddress').val();
+    if(!neoAddress){
+      alert(jQuery.i18n.prop("browser_tip"));
+      return false;
+    }
+    // Bind  (Mapping NEO Address、ProjectID = 1)
+    myContractInstance.bind(1,neoAddress,function(error, result){
+      if(!error){
+        $(".card").hide();
+        $(".package").show();
+      }else{
+        console.log(error);
+      }
+    });
+  })
+
+  //修改
+  $(document).on('click','.modify',function(){
+    $('.card').hide();
+    $('.bind').show();
+  })
+
+  // 转为UTC时间戳
+  function dateToUtcFunc(Y,M,D){
+    return Date.UTC(Y,M,D,0,0,0,0)-8*60*60*1000
+  }
+}
+</script>
+</div>
+<script src="https://static.medishares.net/js/jquery.i18n.properties.js"></script>
+<script src="https://static.medishares.net/js/language.js"></script>
+</body>
+</html>

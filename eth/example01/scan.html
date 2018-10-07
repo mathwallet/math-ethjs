@@ -1,0 +1,42 @@
+<html>
+  <body>
+    <p id="p1">loading</p>
+    <script src="https://static.medishares.net/js/jquery-3.2.1.min.js"></script>
+    <script src="https://static.medishares.net/js/web3.min.js"></script>
+    <script>
+
+   $(function() {
+
+      (function ($) {
+          $.getUrlParam = function (name) {
+              var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+              var r = window.location.search.substr(1).match(reg);
+              if (r != null) return unescape(r[2]); return null;
+          }
+      })(jQuery);
+
+      // Get my MetaMask account
+      account = web3.eth.accounts;
+
+      var dapp = $.getUrlParam('dapp');
+
+      switch(dapp)
+      {
+        case 'etherscan':
+          window.location.href='https://etherscan.io/address/'+account;
+          break;
+        case 'searchain':
+          window.location.href='http://www.searchain.io/address?address='+account;
+          break;
+        case 'ethplorer':
+          window.location.href='https://ethplorer.io/address/'+account;
+          break;
+        default:
+          window.location.href='https://www.etherchain.org/account/'+account;
+      }
+
+   });
+
+    </script>
+  </body>
+</html>

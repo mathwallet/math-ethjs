@@ -1,12 +1,12 @@
 # For Math Wallet DAPP Developer
 
-## [ETH JS](https://github.com/MediShares/mds-ethjs/blob/master/eth/README.md)
+## [ETH JS](https://github.com/mathwallet/mds-ethjs/blob/master/eth/README.md)
 
 ## Other Chain
 
-### [EOS JS](https://github.com/MediShares/mds-eosjs/blob/master/eos/README.md)
+### [EOS JS](https://github.com/mathwallet/mds-eosjs/blob/master/eos/README.md)
 
-### [EOS Force JS](https://github.com/MediShares/mds-eosjs/blob/master/eosforce/README.md)
+### [EOS Force JS](https://github.com/mathwallet/mds-eosjs/blob/master/eosforce/README.md)
 
 
 ### Download Math Wallet 麦子钱包下载

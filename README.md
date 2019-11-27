@@ -6,8 +6,6 @@
 
 ### [EOS JS](https://github.com/mathwallet/mds-eosjs/blob/master/eos/README.md)
 
-### [EOS Force JS](https://github.com/mathwallet/mds-eosjs/blob/master/eosforce/README.md)
-
 
 ### Download Math Wallet 麦子钱包下载
 

@@ -7,7 +7,7 @@ https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md
 
 ### Testing
 
-Math Wallet also provide a testing tool in [DApp] - [EOS DAPP Developer Browser] where you can enter your DAPP URL and test the functions.
+Math Wallet also provide a testing tool in [DApp] - [ETH DAPP Developer Browser] where you can enter your DAPP URL and test the functions.
 
 ![](https://github.com/MediShares/mds-eosjs/blob/master/image/testing.jpg)
 
